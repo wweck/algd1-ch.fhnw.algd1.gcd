@@ -15,7 +15,6 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     testImplementation 'junit:junit:4.13.2'
 }
@@ -24,16 +23,26 @@ application {
 	mainClass = 'ch.fhnw.algd1.gcd.GcdMeasurement'
 }
 
-task testIterative (type: Test) {
+tasks.register('testIterative', Test) {
 	group = 'verification'
 	description = 'Runs tests for the iterative Gcd calculation'
-	
-	include('ch/fhnw/algd1/gcd/GcdIterTest.class')
+
+	testClassesDirs = testing.suites.test.sources.output.classesDirs
+	classpath = testing.suites.test.sources.runtimeClasspath
+
+	filter {
+		includeTestsMatching('ch.fhnw.algd1.gcd.GcdIterTest')
+	}
 }
 
-task testRecursive (type: Test) {
+tasks.register('testRecursive', Test) {
 	group = 'verification'
 	description = 'Runs tests for the recursive Gcd calculation'
-	
-	include('ch/fhnw/algd1/gcd/GcdRecTest.class')
+
+	testClassesDirs = testing.suites.test.sources.output.classesDirs
+	classpath = testing.suites.test.sources.runtimeClasspath
+
+	filter {
+		includeTestsMatching('ch.fhnw.algd1.gcd.GcdRecTest')
+	}
 }
